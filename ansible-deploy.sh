@@ -15,15 +15,11 @@
 ## Run docker-compose
 #cd $repo
 
-### just comment $docker_up or $docker_down in order to run and deprecate containers
+### just uncomment/comment in order to run and deprecate containers
 
-docker_up=docker-compose pull && docker-compose up -d
+##To run containers
+docker-compose pull && docker-compose up -d
 
-docker_down= docker-compose down && docker rmi $(docker images -a -q)
-
-### Comment/Uncomment to orchestrate container deployments
-
-$docker_up
-
-#$docker_down
+##To deprecate containers
+#docker_down=docker-compose down && docker rmi $(docker images -a -q)
 
