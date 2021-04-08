@@ -27,6 +27,7 @@ services:
           - mongodb
 
   flask-app:
+    image: jijendran/flask-app
     container_name: flask-app
     hostname: flask
     environment:
@@ -41,9 +42,6 @@ services:
       - mongodb
     links:
       - mongodb:mongodb
-    build:
-      context: ./flask-app
-      dockerfile: ./Dockerfile
     volumes:
       - './flask-app:/flask-app'
     ports:
@@ -54,15 +52,13 @@ services:
           - flask-network
 
   react-app:
+    image: jijendran/react-app
     container_name: react-app
     hostname: react
     depends_on:
       - flask-app
     links:
       - flask-app:flask-network
-    build:
-      context: ./react-app
-      dockerfile: ./Dockerfile
     volumes:
       - './react-app:/react-app'
     # command: bash -c "npm start"
@@ -74,15 +70,13 @@ services:
           - react-app
 
   angular-app:
+    image: jijendran/angular-app
     container_name: angular-app
     hostname: angular
     depends_on:
       - flask-app
     links:
       - flask-app:flask-network
-    build:
-      context: ./angular-app
-      dockerfile: ./Dockerfile
     volumes:
       - './angular-app:/angular-app'
     # command: bash -c "ng serve --host 0.0.0.0"
@@ -121,5 +115,5 @@ volumes:
 
 networks:
   services-network:
-    name: services-network
     driver: bridge
+
